@@ -22,7 +22,7 @@ if (config.logmode() == 'nstore') {
 console.log('tocho is getting ready to listen & log...');
 
 // temp auth 
-var auth = true;
+var auth = config.auth();
 
 // load messages to screen
 bot.addListener('message', function (from, to, message) {
@@ -52,10 +52,3 @@ function authbot() {
 	bot.say('nickserv', ("identify "+config.password()));
 	console.log("AUTH SENT.");
 }
-
-
-
-
-
-
-

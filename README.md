@@ -15,6 +15,10 @@ and of course, it's just plain good fun on weekend late nights to put some node 
 - use npm install node-irc
 - nStore if you want to save the conversations to Tim Caswell's nStore instead of a plain vanilla text file.
 
+*settings*
+
+see config.js
+
 *run bot*
 
 `node bot.js`
