@@ -1,4 +1,4 @@
-# tocho - a simple irc logging bot built on node-irc by martynsmith
+# Tōchō 盗聴 - a simple irc logging bot built on node-irc and nstore.
 
 *overview*
 
@@ -18,3 +18,7 @@ and of course, it's just plain good fun on weekend late nights to put some node 
 *run bot*
 
 `node bot.js`
+
+*tocho-san is live*
+
+He's living in #node.js at Freenode!

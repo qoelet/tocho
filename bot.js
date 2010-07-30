@@ -21,6 +21,8 @@ if (config.logmode() == 'nstore') {
 // load welcome message
 console.log('tocho is getting ready to listen & log...');
 
+// temp auth 
+var auth = true;
 
 // load messages to screen
 bot.addListener('message', function (from, to, message) {
@@ -33,6 +35,23 @@ bot.addListener('message', function (from, to, message) {
 	}
 });
 
+bot.addListener('pm', function (from, message) {
+    console.log(from + ' => TOCHO: ' + message);
+	if (config.logmode() == 'nstore') {
+		logfile.save(null, {date:Date(), from:from, message:message, private: true })
+	} else {
+		var log_message = (Date() + '__' + from + ':' + message + '\n');
+		fs.write(log_fd, log_message, encoding='utf8');
+	}
+});
+
+if(auth == true)
+	setTimeout(authbot, 20000);
+
+function authbot() {
+	bot.say('nickserv', ("identify "+config.password()));
+	console.log("AUTH SENT.");
+}
 
 
 

@@ -1,8 +1,8 @@
 // set your configurations
 var server = 'irc.freenode.net'
-var channels = ['#node.js']
+var channels = ['#kennyshen']
 var nick = 'tocho-san'
-var password = '123123'
+var password = ''
 var logmode = 'nstore'	// nstore or text
 var logfile = 'log.db'
 
