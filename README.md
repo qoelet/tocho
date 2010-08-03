@@ -10,8 +10,7 @@ and of course, it's just plain good fun on weekend late nights to put some node 
 
 *update*
 
-adding a simple web delivery to a page so ideally tocho can just pass off what it hears and can be viewed real-time from a webpage. eventually to integrate the search into
-the webpage as well.
+adding a simple web delivery to a page so ideally tocho can just pass off what it hears and can be viewed real-time from a webpage. eventually to integrate the search into the webpage as well. I'm turning this guy into a Doraemon. If anyone else got some wacky idea of what tocho should do, join in the fun.
 
 *requirements*
 

@@ -59,15 +59,19 @@ if(config.webserver == true) {
 	var http = require('http')
 	var io = require('socket.io')
 	var less = require('less.js')
-
-	server = http.createServer(function(req, res) {
-		res.writeHeader(200, {'Content-Type': 'text/html'});
-		res.writeBody('<!-- headers, javascript --><h1>Tocho-san is listening to ' + config.channels() + '</h1>'); // swapping this out with either express or fab.
-		res.finish
+	var express= require('express')
+	
+	// initalizing via express
+	var webpush = express.createServer();
+	
+	webpush.get('/', function(req, res) {
+		// only route we'll take for now
+		
+		// future '/search/?q=author' for searching the logs
 	});
 	
-	server.listen(8080);
-
+	webpush.listen(8080)
+	
 	var socket = io.listen(server)
 
 	// socket methods
