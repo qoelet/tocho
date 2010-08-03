@@ -1,7 +1,7 @@
 // load node-irc & other stuff
 var irc = require('irc');
 var fs = require('fs');
-var config = require('./config');
+var config = require('./lib/config');
 var bot = new irc.Client(config.server(), config.nick(), {
 	channels: config.channels(),
 });
@@ -51,4 +51,25 @@ if(auth == true)
 function authbot() {
 	bot.say('nickserv', ("identify "+config.password()));
 	console.log("AUTH SENT.");
+}
+
+// web push via Socket.IO
+// -- not ready yet.
+if(config.webserver == true) {
+	var http = require('http')
+	var io = require('socket.io')
+	var less = require('less.js')
+
+	server = http.createServer(function(req, res) {
+		res.writeHeader(200, {'Content-Type': 'text/html'});
+		res.writeBody('<!-- headers, javascript --><h1>Tocho-san is listening to ' + config.channels() + '</h1>'); // swapping this out with either express or fab.
+		res.finish
+	});
+	
+	server.listen(8080);
+
+	var socket = io.listen(server)
+
+	// socket methods
+
 }
