@@ -12,4 +12,4 @@
 
 6. export conversations to other formats
 
-7. 
+7. command line options 

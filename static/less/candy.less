@@ -1,0 +1,31 @@
+@nice-blue: #5B83AD;
+@light-blue: @nice-blue + #111;
+@simple-grey: #665;
+@dark-grey: #332;
+
+.basic_type {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+body { color: @simple-grey; .basic_type; font-size:14px; }
+
+h1 { .basic_type; font-size: 1.3em; color: @light-blue; } 
+
+h2 { .basic_type; font-size: 1.15em; color: @nice-blue; }
+
+#content {
+    margin: 55px;
+    width: 960px;
+    height: 550px;
+    
+    a {
+        color: @dark-grey;
+        font-weight: bold;
+        text-decoration:none;
+    }
+    
+    #footer {
+        .basic_type;
+        font-size:0.9em;
+    }
+}
