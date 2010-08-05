@@ -78,9 +78,22 @@ if(config.ircbot() == true) {
 		webpush.set('view engine', 'jade');
 
 		webpush.get('/', function(req, res) {
-			// only route we'll take for now
+			// home route for socket.io connection to channel
 			res.render('index', {layout:false}); 
-			// future '/search/?q=author' for searching the logs
+		});
+		
+		webpush.get('/search/:author', function(req, res) {
+			var author = req.params.author;
+			console.log("request for conversations by " + author);
+			var mydata = [];
+			var logsearch = require('./lib/logsearch');
+			var search_inst = new logsearch.logSearch();
+			conversations = search_inst.results(config.logfile(),author);
+			conversations.on('data', function(chunk) {
+				for(i in chunk)
+					mydata.push(chunk[i].message);
+				res.render('search', {layout:false, locals:{mydata:mydata,author:author}});
+			});
 		});
 
 		webpush.listen(8080);

@@ -1,0 +1,12 @@
+html
+  head
+    title tocho-san at your service!
+    link(href:'/less/candy.less', type:'text/css', rel:'stylesheet/less')
+    script(src:'/js/less-1.0.33.min.js', type:'text/javascript')
+    script(src:'/js/jquery-1.4.2.min.js', type:'text/javascript')
+  body
+    h1 tocho-san is done with the search!
+    h2 -- now listing conversations by #{author}
+    div(id:'container')
+      - for (var key in mydata)
+        div(class:'results')= mydata[key]
