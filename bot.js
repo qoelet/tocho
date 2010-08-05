@@ -1,7 +1,9 @@
 // load node-irc & other stuff
 var irc = require('irc');
 var fs = require('fs');
+var json = JSON.stringify;
 var config = require('./lib/config');
+
 
 if(config.ircbot() == true) {
 	var bot = new irc.Client(config.server(), config.nick(), {
@@ -35,6 +37,11 @@ if(config.ircbot() == true) {
 			var log_message = (Date() + '__' + from + ':' + message + '\n');
 			fs.write(log_fd, log_message, encoding='utf8');
 		}
+		
+		// if socket is on
+		if (!(config.webserver() == false)) {
+			socket.broadcast(json(from+' says -> '+message));
+		}
 	});
 
 	bot.addListener('pm', function (from, message) {
@@ -54,39 +61,41 @@ if(config.ircbot() == true) {
 		bot.say('nickserv', ("identify "+config.password()));
 		console.log("AUTH SENT.");
 	}
-}
+	
+	// web push via Socket.IO
+	// -- not ready yet.
+	if(config.webserver() == true) {
+		var http = require('http')
+		var io = require('socket.io')
+		var connect = require('connect')
+		var express= require('express')
 
-// web push via Socket.IO
-// -- not ready yet.
-if(config.webserver() == true) {
-	var http = require('http')
-	var io = require('socket.io')
-	var connect = require('connect')
-	var express= require('express')
-	
-	// initalizing via express
-	var webpush = express.createServer(
-		connect.staticProvider(__dirname + '/static/')
-	);
-	
-	webpush.set('view engine', 'jade');
-	
-	webpush.get('/', function(req, res) {
-		// only route we'll take for now
-		res.render('index', {layout:false}); 
-		// future '/search/?q=author' for searching the logs
-	});
-	
-	webpush.listen(8080);
-	
-	console.log('tocho is listening to the web on 8080...');
-	
-	var socket = io.listen(webpush);
-	
-	socket.on('connection', function() {
-		console.log('incoming client...');
-	})
+		// initalizing via express
+		var webpush = express.createServer(
+			connect.staticProvider(__dirname + '/static/')
+		);
 
-	// socket methods
+		webpush.set('view engine', 'jade');
 
+		webpush.get('/', function(req, res) {
+			// only route we'll take for now
+			res.render('index', {layout:false}); 
+			// future '/search/?q=author' for searching the logs
+		});
+
+		webpush.listen(8080);
+
+		console.log('tocho is listening to the web on 8080...');
+
+		var socket = io.listen(webpush);
+
+		socket.on('connection', function() {
+			console.log('incoming client...');
+		})
+
+		// socket methods
+		
+	} else {
+		var socket = false;
+	}
 }

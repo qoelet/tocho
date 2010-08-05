@@ -9,14 +9,14 @@
 
 body { color: @simple-grey; .basic_type; font-size:14px; }
 
-h1 { .basic_type; font-size: 1.3em; color: @light-blue; } 
+h1 { .basic_type; font-size: 1.2em; color: @light-blue; } 
 
-h2 { .basic_type; font-size: 1.15em; color: @nice-blue; }
+h2 { .basic_type; font-size: 1.1em; color: @nice-blue; }
 
-#content {
-    margin: 55px;
+#container {
+    margin: 10px;
     width: 960px;
-    height: 550px;
+    height: 750px;
     
     a {
         color: @dark-grey;
@@ -24,8 +24,17 @@ h2 { .basic_type; font-size: 1.15em; color: @nice-blue; }
         text-decoration:none;
     }
     
+    #messages {
+        height:450px;
+        width:960px;
+        border: 1px solid #CCC;
+        overflow:scroll;
+    }
+    
     #footer {
+        margin-top:10px;
         .basic_type;
         font-size:0.9em;
+        font-weight:bold;
     }
 }

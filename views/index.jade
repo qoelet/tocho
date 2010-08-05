@@ -4,19 +4,24 @@ html
     link(href:'/less/candy.less', type:'text/css', rel:'stylesheet/less')
     script(src:'/js/less-1.0.33.min.js', type:'text/javascript')
     script(src:'/js/socket.io.js', type:'text/javascript')
+    script(src:'/js/jquery-1.4.2.min.js', type:'text/javascript')
     :javascript
       | io.setPath('/js/')
       | socket = new io.Socket('localhost', 8080);
       | socket.connect();
       | socket.send('hello');
       | socket.on('message', function(data) {
-      |   console.log('....?');  
+      |   data = data.replace( /"/g, '');
+      |   $('#messages').prepend('<p>' + data + '</p>').fadeIn();
       | });
   body
     div(id:'container')
       div(id:'logo')
         img(src:'/images/tocho.gif')
       div(id:'logger')
-        h1 Conversations
-        h2 : (if tocho-san is listening)
-        
+        h1 Conversations from #node.js @ freenode
+        h2 : (if tocho-san is listening) + your browser needs websockets (safari, chrome..etc)
+        div 
+          em newest conversations on top.
+        div(id:'messages')
+      div(id:'footer') tocho is mashed up using node.js. find him at www.github.com/kennyshen/tocho.
