@@ -86,8 +86,8 @@ if(config.ircbot() == true) {
 			var author = req.params.author;
 			console.log("request for conversations by " + author);
 			var mydata = [];
-			var logsearch = require('./lib/logsearch');
-			var search_inst = new logsearch.logSearch();
+			var logSearch = require('./lib/logsearch');
+			var search_inst = new logSearch();
 			conversations = search_inst.results(config.logfile(),author);
 			conversations.on('data', function(chunk) {
 				for(i in chunk)
