@@ -19,3 +19,5 @@
 9. allow owner to post to twitter through private message
 
 10. simple bot commands via private message (e.g. stand down, leave channel...etc)
+
+11. allow multi-channel logging and search.
