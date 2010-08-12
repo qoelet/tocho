@@ -7,7 +7,7 @@ html
     script(src:'/js/jquery-1.4.2.min.js', type:'text/javascript')
     :javascript
       | io.setPath('/js/')
-      | socket = new io.Socket('localhost', 8080);
+      | socket = new io.Socket('8.17.81.42', 8080); // replace with your own server settings (or localhost)
       | socket.connect();
       | socket.send('hello tocho-bot!');
       | socket.on('message', function(data) {
