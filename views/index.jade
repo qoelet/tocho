@@ -9,7 +9,15 @@ html
       | io.setPath('/js/')
       | socket = new io.Socket('localhost', 8080);
       | socket.connect();
-      | socket.send('hello');
+      | socket.send('hello tocho-bot!');
+      | socket.on('connect', function() {
+      |   $('#disconnected').fadeOut();
+      |   $('#connected').fadeIn();
+      | });
+      | socket.on('disconnect', function() {
+      |   $('#connected').fadeOut();
+      |   $('#disconnected').fadeIn();
+      | });
       | socket.on('message', function(data) {
       |   data = data.replace( /"/g, '');
       |   $('#messages').prepend('<p>' + data + '</p>').fadeIn();
@@ -21,6 +29,11 @@ html
       div(id:'logger')
         h1 Conversations from #node.js @ freenode
         h2 : (if tocho-san is listening) + your browser needs websockets (safari, chrome..etc)
+        div(id:'notifications')
+          div(id:'connected', style:'display:none')
+            tocho - you're now connected.
+          div(id:'disconnected', style:'display:none')
+            tocho - you're now dis-connected.
         div 
           em newest conversations on top.
         div(id:'messages')
