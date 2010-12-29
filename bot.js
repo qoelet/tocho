@@ -4,6 +4,11 @@ var fs = require('fs');
 var json = JSON.stringify;
 var config = require('./lib/config');
 
+var error_f = function(err) {
+  if (err)
+    throw err;
+}
+
 
 if(config.ircbot() == true) {
 	var bot = new irc.Client(config.server(), config.nick(), {
@@ -13,7 +18,7 @@ if(config.ircbot() == true) {
 	// logging
 	if (config.logmode() == 'nstore') {
 		var nStore = require('nStore');
-		var logfile = nStore(config.logfile());
+		var logfile = nStore.new(config.logfile(),error_f);
 	} else {
 		var logfile = config.logfile();
 		var log_fd;
@@ -32,7 +37,7 @@ if(config.ircbot() == true) {
 	bot.addListener('message', function (from, to, message) {
 	    console.log(from + ' => ' + to + ': ' + message);
 		if (config.logmode() == 'nstore') {
-			logfile.save(null, {date:Date(), from:from, message:message })
+			logfile.save(null, {date:Date(), from:from, message:message },error_f)
 		} else {
 			var log_message = (Date() + '__' + from + ':' + message + '\n');
 			fs.write(log_fd, log_message, encoding='utf8');
@@ -47,7 +52,7 @@ if(config.ircbot() == true) {
 	bot.addListener('pm', function (from, message) {
 	    console.log(from + ' => TOCHO: ' + message);
 		if (config.logmode() == 'nstore') {
-			logfile.save(null, {date:Date(), from:from, message:message, private: true })
+			logfile.save(null, {date:Date(), from:from, message:message, private: true },error_f)
 		} else {
 			var log_message = (Date() + '__' + from + ':' + message + '\n');
 			fs.write(log_fd, log_message, encoding='utf8');
